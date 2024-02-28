@@ -5,7 +5,7 @@ export interface UserDocument extends Document {
   username: string;
   email: string;
   password: string;
-  isValidPassword(password: string): Promise<boolean>; // Definir el método isValidPassword
+  isValidPassword(password: string): Promise<boolean>; 
 }
 
 const userSchema: Schema<UserDocument> = new Schema({

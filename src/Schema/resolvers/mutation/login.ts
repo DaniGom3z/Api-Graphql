@@ -1,6 +1,8 @@
-// Mutation para el login de usuario
 import { AuthenticationError } from 'apollo-server-express';
 import UserModel, { UserDocument } from "../../../models/user";
+import jwt from 'jsonwebtoken';
+
+const secretKey = process.env.JWT_SECRET || 'default_secret'; 
 
 interface LoginArgs {
   email: string;
@@ -42,9 +44,21 @@ export const login =  async (_: any, { email, password }: LoginArgs): Promise<Au
     }
 
 
-// Función para generar un token de autenticación (debes implementarla según tu método de autenticación)
-function generateAuthToken(user: UserDocument): string {
-  // Aquí debes generar y devolver un token de autenticación, por ejemplo, usando JWT
-  // Esto es solo un ejemplo, asegúrate de usar un método seguro para generar tokens
-  return 'JWT_TOKEN';
-}
+    export function generateAuthToken(user: UserDocument): string {
+      const payload = {
+        userId: user._id,
+        email: user.email,
+      };
+    
+      const options: jwt.SignOptions = {
+        expiresIn: '1h', 
+      };
+    
+      try {
+        const token = jwt.sign(payload, secretKey, options);
+        return token;
+      } catch (error) {
+        console.error('Error al generar el token:', error);
+        throw new Error('Error al generar el token de autenticación');
+      }
+    }
