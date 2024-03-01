@@ -5,6 +5,7 @@ export interface UserDocument extends Document {
   username: string;
   email: string;
   password: string;
+  webhook: string;
   isValidPassword(password: string): Promise<boolean>; 
 }
 
@@ -22,6 +23,10 @@ const userSchema: Schema<UserDocument> = new Schema({
     type: String,
     required: true
   },
+  webhook:{
+    type:String,
+    required:false
+  }
 });
 
 userSchema.methods.isValidPassword = async function(password: string): Promise<boolean> {
