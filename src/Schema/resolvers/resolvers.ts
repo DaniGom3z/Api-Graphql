@@ -7,6 +7,7 @@ import {createMouse} from "./mutation/createMouse"
 import {updateMouse} from "./mutation/updateMouse"
 import { deleteMouse } from "./mutation/deleteMouse"
 import {login} from "./mutation/login"
+import {createWebhook} from "./mutation/createWebhook"
 
 //--------------------------------Query---------------------
 import { getAllLaptops } from "./querys/getAllLaptops"
@@ -38,7 +39,8 @@ const resolvers={
         createMouse,
         updateMouse,
         deleteMouse,
-        login 
+        login ,
+        createWebhook
     }
 }
 

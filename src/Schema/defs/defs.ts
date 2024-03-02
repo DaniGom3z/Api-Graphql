@@ -29,11 +29,14 @@ import getAllUsers from "./Query/getAllUsers";
 //------------------------------------------------------------------Mutation
 import createUser from "./Mutation/createUser";
 import login from "./Mutation/login";
+import createwebhook from "./Mutation/createWebhook"
+import Webhook from "./types/typeWebhook";
 
 const typeDefs = mergeTypeDefs([
   Laptop,
   User,
   Mouse,
+  Webhook,
   getAllLaptop,
   createLaptop,
   getAllUsers,
@@ -49,7 +52,8 @@ const typeDefs = mergeTypeDefs([
   deleteMouse,
   getLaptopsByPrice,
   getMousesByPrice,
-  login
+  login,
+  createwebhook
 ]);
 
 export { typeDefs };
