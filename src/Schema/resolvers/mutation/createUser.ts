@@ -13,10 +13,8 @@ export const createUser = async (_: void, args: { username: string, email: strin
 
     await newUser.save();
 
-    // Obtén los webhooks asociados con el evento "createUser"
     const webhooks = await EventWebhookModel.find({ event: "createUser" });
 
-    // Para cada webhook asociado, envía la notificación
     for (const webhook of webhooks) {
       await notify(webhook.webhookUrl, "se creo un nuevo usuario");
     }

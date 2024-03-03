@@ -3,6 +3,7 @@ import { ApolloServer } from "apollo-server";
 import { typeDefs } from "./Schema/defs/defs";
 import { resolvers  } from "./Schema/resolvers/resolvers";
 import { connectDB } from "./config/db";
+import context from "./context/context";
 
 config();
 
@@ -11,8 +12,9 @@ connectDB();
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
-});
+    resolvers,
+    context
+  });
 
 const PORT: number = parseInt(process.env.PORT || "3000");
 

@@ -3,7 +3,11 @@ import UserModel, { UserDocument } from "../../../models/user";
 import EventWebhookModel from "../../../models/socios";
 import { notify } from '../../../webhook/noticacion';
 
-export const createLaptop = async (_: void, args: {name:string, ram: string, pantalla: string,precio:number,marca:string }): Promise<LaptopDocument> => {
+export const createLaptop = async (_: void, args: {name:string, ram: string, pantalla: string,precio:number,marca:string }, context: any): Promise<LaptopDocument> => {
+    if (!context.user) {
+        throw new Error("Usuario no autenticado"); 
+    }
+    
     const { name, ram, pantalla,precio,marca } = args;
     const newLaptop = new LaptopModel({name, ram, pantalla,precio,marca});
     await newLaptop.save();

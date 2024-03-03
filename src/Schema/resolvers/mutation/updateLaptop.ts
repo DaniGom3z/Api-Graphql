@@ -1,6 +1,11 @@
 import LaptopModel, { LaptopDocument } from "../../../models/laptop";
+import { AuthenticationError } from 'apollo-server-express';
 
-export const updateLaptop = async (_: void, args: { id: string, name: string, ram: string, pantalla: string, precio: number, marca: string }): Promise<LaptopDocument | null> => {
+export const updateLaptop = async (_: void, args: { id: string, name: string, ram: string, pantalla: string, precio: number, marca: string }, context: any): Promise<LaptopDocument | null> => {
+    if (!context.user) {
+        throw new AuthenticationError('Usuario no autenticado');
+    }
+
     const { id, name, ram, pantalla, precio, marca } = args;
     
     const existingLaptop = await LaptopModel.findById(id);
